@@ -1,0 +1,199 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plant Care A-Z</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>Plant Care A-Z</header>
+  <div class="container">
+    <div class="search-filters">
+      <div class="search-bar">
+        <input type="text" placeholder="Search">
+        <button>Submit</button>
+      </div>
+      <div class="filters">
+        <div class="filter-group">
+          <label>Environment:</label>
+          <span>Indoor</span>
+          <span>Outdoor</span>
+          <span>Either</span>
+        </div>
+        <div class="filter-group">
+          <label>Size:</label>
+          <span>Small</span>
+          <span>Medium</span>
+          <span>Large</span>
+        </div>
+        <div class="filter-group">
+          <label>Difficulty:</label>
+          <span>Easy</span>
+          <span>Medium</span>
+          <span>Hard</span>
+        </div>
+      </div>
+      <select class="sort-dropdown">
+        <option value="a-z">A-Z</option>
+        <option value="z-a">Z-A</option>
+      </select>
+    </div>
+    <div class="gallery">
+        <!-- Chinese Evergreen -->
+        <div class="plant-card" data-environment="Indoor" data-size="Medium" data-difficulty="Easy">
+            <a href="https://google.com" target="_blank" rel="noopener noreferrer">
+            <img src="Chinese Evergreen (Aglaonema spp.).webp" alt="Chinese Evergreen">
+            </a>
+            <a href="https://google.com" target="_blank" class="plant-title">Chinese Evergreen</a>
+        </div>
+        
+        <!-- Coleus -->
+        <div class="plant-card" data-environment="Outdoor" data-size="Medium" data-difficulty="Easy">
+            <a href="https://example.com/coleus" target="_blank" rel="noopener noreferrer">
+            <img src="Coleus (Plectranthus scutellarioides).webp" alt="Coleus">
+            </a>
+            <a href="https://example.com/coleus" target="_blank" class="plant-title">Coleus</a>
+        </div>
+        
+        <!-- Croton -->
+        <div class="plant-card" data-environment="Indoor" data-size="Medium" data-difficulty="Medium">
+            <a href="https://example.com/croton" target="_blank" rel="noopener noreferrer">
+            <img src="Croton (Codiaeum variegatum).webp" alt="Croton">
+            </a>
+            <a href="https://example.com/croton" target="_blank" class="plant-title">Croton</a>
+        </div>
+        
+        <!-- Maranta -->
+        <div class="plant-card" data-environment="Indoor" data-size="Small" data-difficulty="Medium">
+            <a href="https://example.com/maranta" target="_blank" rel="noopener noreferrer">
+            <img src="Maranta (Maranta leuconeura).webp" alt="Maranta">
+            </a>
+            <a href="https://example.com/maranta" target="_blank" class="plant-title">Maranta</a>
+        </div>
+        
+        <!-- Purple Passion Plant -->
+        <div class="plant-card" data-environment="Indoor" data-size="Medium" data-difficulty="Easy">
+            <a href="https://example.com/purple-passion" target="_blank" rel="noopener noreferrer">
+            <img src="Purple Passion Plant (Gynura aurantiaca).webp" alt="Purple Passion Plant">
+            </a>
+            <a href="https://example.com/purple-passion" target="_blank" class="plant-title">Purple Passion Plant</a>
+        </div>
+        
+        <!-- Rex Begonia -->
+        <div class="plant-card" data-environment="Indoor" data-size="Small" data-difficulty="Medium">
+            <a href="https://example.com/rex-begonia" target="_blank" rel="noopener noreferrer">
+            <img src="Rex Begonia (Begonia rex-cultorum).webp" alt="Rex Begonia">
+            </a>
+            <a href="https://example.com/rex-begonia" target="_blank" class="plant-title">Rex Begonia</a>
+        </div>
+        
+        <!-- Calathea -->
+        <div class="plant-card" data-environment="Indoor" data-size="Medium" data-difficulty="Medium">
+            <a href="https://example.com/calathea" target="_blank" rel="noopener noreferrer">
+            <img src="Calathea (Calathea spp.).webp" alt="Calathea">
+            </a>
+            <a href="https://example.com/calathea" target="_blank" class="plant-title">Calathea</a>
+        </div>
+        
+        <!-- Stromanthe Triostar -->
+        <div class="plant-card" data-environment="Indoor" data-size="Medium" data-difficulty="Medium">
+            <a href="https://example.com/stromanthe" target="_blank" rel="noopener noreferrer">
+            <img src="Stromanthe sanguinea (Triostar).webp" alt="Stromanthe Triostar">
+            </a>
+            <a href="https://example.com/stromanthe" target="_blank" class="plant-title">Stromanthe Triostar</a>
+        </div>
+    </div>
+  </div>
+</body>
+</html> 
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const searchInput = document.querySelector('.search-bar input');
+      const filterButtons = document.querySelectorAll('.filters span');
+      const sortDropdown = document.querySelector('.sort-dropdown');
+      const plantCards = document.querySelectorAll('.plant-card');
+  
+      // Filter functionality
+      filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const filterCategory = button.textContent.trim();
+          plantCards.forEach(card => {
+            const matchesFilter = Object.values(card.dataset).some(value => value === filterCategory);
+            card.style.display = matchesFilter ? '' : 'none';
+          });
+        });
+      });
+  
+      // Search functionality
+      searchInput.addEventListener('input', () => {
+        const searchValue = searchInput.value.toLowerCase();
+        plantCards.forEach(card => {
+          const plantTitle = card.querySelector('.plant-title').textContent.toLowerCase();
+          card.style.display = plantTitle.includes(searchValue) ? '' : 'none';
+        });
+      });
+  
+      // Sorting functionality
+      sortDropdown.addEventListener('change', () => {
+        const sortOrder = sortDropdown.value;
+        const gallery = document.querySelector('.gallery');
+        const sortedCards = Array.from(plantCards).sort((a, b) => {
+          const titleA = a.querySelector('.plant-title').textContent.toLowerCase();
+          const titleB = b.querySelector('.plant-title').textContent.toLowerCase();
+          if (sortOrder === 'a-z') return titleA.localeCompare(titleB);
+          if (sortOrder === 'z-a') return titleB.localeCompare(titleA);
+        });
+        gallery.innerHTML = '';
+        sortedCards.forEach(card => gallery.appendChild(card));
+      });
+    });
+  </script>
+  
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const searchInput = document.querySelector('.search-bar input');
+      const filterButtons = document.querySelectorAll('.filters span');
+      const sortDropdown = document.querySelector('.sort-dropdown');
+      const plantCards = document.querySelectorAll('.plant-card');
+  
+      // Filter functionality
+      filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const filterCategory = button.textContent.trim();
+          plantCards.forEach(card => {
+            const matchesFilter = Object.values(card.dataset).some(value => value === filterCategory);
+            card.style.display = matchesFilter ? '' : 'none';
+          });
+        });
+      });
+  
+      // Search functionality
+      searchInput.addEventListener('input', () => {
+        const searchValue = searchInput.value.toLowerCase();
+        plantCards.forEach(card => {
+          const plantTitle = card.querySelector('.plant-title').textContent.toLowerCase();
+          card.style.display = plantTitle.includes(searchValue) ? '' : 'none';
+        });
+      });
+  
+      // Sorting functionality
+      sortDropdown.addEventListener('change', () => {
+        const sortOrder = sortDropdown.value;
+        const gallery = document.querySelector('.gallery');
+        const sortedCards = Array.from(plantCards).sort((a, b) => {
+          const titleA = a.querySelector('.plant-title').textContent.toLowerCase();
+          const titleB = b.querySelector('.plant-title').textContent.toLowerCase();
+          if (sortOrder === 'a-z') return titleA.localeCompare(titleB);
+          if (sortOrder === 'z-a') return titleB.localeCompare(titleA);
+        });
+        gallery.innerHTML = '';
+        sortedCards.forEach(card => gallery.appendChild(card));
+      });
+    });
+  </script>
+  
